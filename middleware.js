@@ -69,7 +69,7 @@ export const config = {
     "/link",
     "/clicks",
     "/collections",
-    "/open-cash",
+    "/cash-app",
     "/posters/:path*",
   ],
 };
