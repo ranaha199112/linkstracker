@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import React from "react";
 import { FaGlobe } from "react-icons/fa";
 import Loader from "../components/common/Loader";
 import AdminLinks from "../components/Links/AdminLinks";

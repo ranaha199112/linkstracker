@@ -1,5 +1,4 @@
 import { getSession, useSession } from "next-auth/react";
-import React from "react";
 import { FaEnvelope } from "react-icons/fa";
 import Table from "../components/Table";
 import { collectionColumn } from "../components/Table/columns/collectionColumn";
