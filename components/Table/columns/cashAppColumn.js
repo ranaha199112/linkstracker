@@ -1,4 +1,9 @@
-export const openCashColumn = [
+export const cashAppColumn = [
+  {
+    Header: "Website",
+    accessor: "site",
+    width: "auto",
+  },
   {
     Header: "Email/Phone",
     accessor: "contact",

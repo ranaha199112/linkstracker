@@ -24,8 +24,8 @@ export const dashboardLinks = [
     icon: <FaEnvelope />,
   },
   {
-    name: "Open Cash",
-    link: "/open-cash",
+    name: "Cash App",
+    link: "/cash-app",
     icon: <FaEnvelope />,
   },
   {

