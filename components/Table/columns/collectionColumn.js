@@ -23,6 +23,16 @@ export const collectionColumn = [
     accessor: "skipcode",
     width: "auto",
   },
+  {
+    Header: "Username",
+    accessor: "username",
+    width: "auto",
+  },
+  {
+    Header: "Passcode",
+    accessor: "passcode",
+    width: "auto",
+  },
   // {
   //   Header: "verify_code",
   //   accessor: "verify_code",
