@@ -38,9 +38,9 @@ function Layout({ children, heading }) {
     return <>{children}</>;
   }
 
-  if (!data) {
-    return <>{children}</>;
-  }
+  // if (!data) {
+  //   return <>{children}</>;
+  // }
 
   if (pathname.includes("password")) {
     return <>{children}</>;
