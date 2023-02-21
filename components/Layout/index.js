@@ -20,17 +20,24 @@ function Layout({ children, heading }) {
 
   const admin = data?.user?.admin;
   const username = data?.user?.username;
+  const qrCodeStatus = data?.user?.qrCodeStatus;
 
   // console.log("usersession", data);
 
   // const username = data?.user?.username;
 
   const filteredLinks = () => {
+    let links = dashboardLinks;
+
+    if (qrCodeStatus === false) {
+      links = dashboardLinks.filter((item) => item.name !== "QR Code");
+    }
+
     if (admin === true) {
-      return dashboardLinks.filter((item) => item.name !== "Collections");
+      return links.filter((item) => item.name !== "Collections");
     }
     if (admin === false) {
-      return dashboardLinks.filter((item) => item.name !== "Posters");
+      return links.filter((item) => item.name !== "Posters");
     }
   };
 

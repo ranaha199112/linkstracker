@@ -16,12 +16,20 @@ export default async function middleware(req) {
   const jwt = await getToken({ req, secret });
   const user = jwt?.user?.username;
   const role = jwt?.user?.admin;
+  const qrCodeStatus = jwt?.user?.qrCodeStatus;
   // const role = false;
 
   console.log("middleware token", role);
 
   if (!user) {
     return NextResponse.redirect(`${origin}/sign-in`);
+  }
+
+  if (user && pathname.includes("/qr-code")) {
+    if (qrCodeStatus === false) {
+      return NextResponse.redirect(`${origin}/404`);
+    }
+    return NextResponse.next();
   }
 
   if (user && pathname.includes("/posters")) {
