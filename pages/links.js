@@ -10,7 +10,7 @@ import useGetData from "../hooks/useGetData";
 
 function LinksPage() {
   const { data: session } = useSession();
-  const { id, username, admin, adminId } = session ? session.user : "";
+  const { id, admin } = session ? session.user : "";
   console.log("id", id);
 
   const { fetchedData, isLoading } = useGetData(`/link/get/${id}/${admin}`);

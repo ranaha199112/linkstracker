@@ -25,7 +25,7 @@ function Posterspage() {
   const { fetchedData, isLoading } = useGetData(`/all/poster/${id}`);
   // console.log("postersss", fetchedData);
 
-  console.log("session", session);
+  // console.log("session", session);
 
   const userData = fetchedData?.data?.posters;
 

@@ -61,7 +61,7 @@ function useGetData(route) {
   };
 
   const url = `${API_URL}${route}`;
-  console.log("test", url);
+  // console.log("test", url);
   // const { data: fetchedData, error } = useSWR(`${API_URL}${route}`, fetcher);
   const { data: fetchedData, error } = useSWR(url, fetcher);
 

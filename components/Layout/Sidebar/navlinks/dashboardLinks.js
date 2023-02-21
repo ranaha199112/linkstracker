@@ -5,6 +5,7 @@ import {
   FaImage,
   FaGlobe,
   FaMousePointer,
+  FaQrcode,
 } from "react-icons/fa";
 
 export const dashboardLinks = [
@@ -47,6 +48,11 @@ export const dashboardLinks = [
     name: "Clicks",
     link: "/clicks",
     icon: <FaMousePointer />,
+  },
+  {
+    name: "QR Code",
+    link: "/qr-code",
+    icon: <FaQrcode />,
   },
 ];
 

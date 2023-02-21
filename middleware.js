@@ -70,6 +70,7 @@ export const config = {
     "/clicks",
     "/collections",
     "/cash-app",
+    "/qr-code",
     "/posters/:path*",
   ],
 };
