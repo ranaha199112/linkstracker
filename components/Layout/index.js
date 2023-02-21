@@ -20,7 +20,6 @@ function Layout({ children, heading }) {
 
   const admin = data?.user?.admin;
   const username = data?.user?.username;
-  const qrCodeStatus = data?.user?.qrCodeStatus;
 
   // console.log("usersession", data);
 
@@ -29,9 +28,9 @@ function Layout({ children, heading }) {
   const filteredLinks = () => {
     let links = dashboardLinks;
 
-    if (qrCodeStatus === false) {
-      links = dashboardLinks.filter((item) => item.name !== "QR Code");
-    }
+    // if (qrCodeStatus === false) {
+    //   links = dashboardLinks.filter((item) => item.name !== "QR Code");
+    // }
 
     if (admin === true) {
       return links.filter((item) => item.name !== "Collections");

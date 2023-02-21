@@ -9,7 +9,7 @@ function QRCodepage() {
   const [selectedSite, setSelectedSite] = useState("");
 
   const { data: session } = useSession();
-  const { id, admin } = session ? session.user : "";
+  const { id, admin, adminId } = session ? session.user : "";
 
   const isAdmin = !admin && 0;
 
@@ -19,6 +19,12 @@ function QRCodepage() {
   const apiLink = admin ? `/all/poster/${id}` : `/link/get/${id}/${isAdmin}`;
 
   const { fetchedData, isLoading } = useGetData(apiLink);
+
+  const { fetchedData: qrCode, isLoading: isLoading2 } = useGetData(
+    `/qrcode/status/check/${adminId}`
+  );
+
+  // console.log("qrcode", fetchedData2);
 
   const adminLinks =
     admin &&
@@ -50,81 +56,88 @@ function QRCodepage() {
         <h1 className="text-2xl font-bold text-custom-gray2">QR Code</h1>
       </div>
 
-      <Loader isLoading={isLoading}>
-        <div className="mt-7 flex flex-col lg:flex-row gap-5">
-          <div className="lg:sticky top-[95px] lg:self-start lg:min-w-[450px] min-h-[300px] bg-white p-8 rounded shadow-md">
-            <h4 className="text-xl font-semibold">Generate QR Code</h4>
-            <p className="mt-2 text-sm font-semibold text-custom-gray3">
-              Site: {selectedSite}
-            </p>
-            <div className="mt-3 flex justify-center">
-              {selectedSite && <Image text={selectedSite} alt="qr code" />}
+      <Loader isLoading={isLoading && isLoading2}>
+        {qrCode.status === true ? (
+          <div className="mt-7 flex flex-col lg:flex-row gap-5">
+            <div className="lg:sticky top-[95px] lg:self-start lg:min-w-[450px] min-h-[300px] bg-white p-8 rounded shadow-md">
+              <h4 className="text-xl font-semibold">Generate QR Code</h4>
+              <p className="mt-2 text-sm font-semibold text-custom-gray3">
+                Site: {selectedSite}
+              </p>
+              <div className="mt-3 flex justify-center">
+                {selectedSite && <Image text={selectedSite} alt="qr code" />}
+              </div>
             </div>
-          </div>
 
-          <div className="flex-1 bg-white rounded shadow-md p-8 overflow-x-auto">
-            <h4 className="text-xl font-semibold">All Links</h4>
-            <div className="mt-3 w-[350px] lg:w-[500px]">
-              {!admin ? (
-                <div className="">
-                  {posterLinks?.map((site, i) => (
-                    <div key={i} className="flex items-center justify-between">
-                      <p className="py-3 text-sm text-custom-gray3 font-semibold">
-                        {site.split("https://").join("")}
-                      </p>
+            <div className="flex-1 bg-white rounded shadow-md p-8 overflow-x-auto">
+              <h4 className="text-xl font-semibold">All Links</h4>
+              <div className="mt-3 w-[350px] lg:w-[500px]">
+                {!admin ? (
+                  <div className="">
+                    {posterLinks?.map((site, i) => (
+                      <div
+                        key={i}
+                        className="flex items-center justify-between"
+                      >
+                        <p className="py-3 text-sm text-custom-gray3 font-semibold">
+                          {site.split("https://").join("")}
+                        </p>
 
-                      <div className="">
-                        <button
-                          className={`text-xs font-bold text-white px-2 py-1 rounded ${
-                            selectedSite === site
-                              ? "bg-blue-500"
-                              : "bg-cyan-700 "
-                          }`}
-                          onClick={() => setSelectedSite(site)}
-                        >
-                          Generate
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="">
-                  {adminLinks?.map((admin, i) => (
-                    <div key={i} className="py-5">
-                      <p className=" text-custom-gray3 font-semibold">
-                        Poster: {admin.username}
-                      </p>
-                      {admin.links.map((site, i) => (
-                        <div
-                          key={i}
-                          className="py-2 flex items-center justify-between"
-                        >
-                          <p className=" text-sm text-custom-gray3 font-semibold">
-                            {site.split("https://").join("")}
-                          </p>
-
-                          <div className="">
-                            <button
-                              className={`text-xs font-bold text-white px-2 py-1 rounded ${
-                                selectedSite === site
-                                  ? "bg-blue-500"
-                                  : "bg-cyan-700 "
-                              }`}
-                              onClick={() => setSelectedSite(site)}
-                            >
-                              Generate
-                            </button>
-                          </div>
+                        <div className="">
+                          <button
+                            className={`text-xs font-bold text-white px-2 py-1 rounded ${
+                              selectedSite === site
+                                ? "bg-blue-500"
+                                : "bg-cyan-700 "
+                            }`}
+                            onClick={() => setSelectedSite(site)}
+                          >
+                            Generate
+                          </button>
                         </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="">
+                    {adminLinks?.map((admin, i) => (
+                      <div key={i} className="py-5">
+                        <p className=" text-custom-gray3 font-semibold">
+                          Poster: {admin.username}
+                        </p>
+                        {admin.links.map((site, i) => (
+                          <div
+                            key={i}
+                            className="py-2 flex items-center justify-between"
+                          >
+                            <p className=" text-sm text-custom-gray3 font-semibold">
+                              {site.split("https://").join("")}
+                            </p>
+
+                            <div className="">
+                              <button
+                                className={`text-xs font-bold text-white px-2 py-1 rounded ${
+                                  selectedSite === site
+                                    ? "bg-blue-600"
+                                    : "bg-cyan-700 "
+                                }`}
+                                onClick={() => setSelectedSite(site)}
+                              >
+                                Generate
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-7 text-lg">QR Code Inactive</div>
+        )}{" "}
       </Loader>
     </div>
   );
