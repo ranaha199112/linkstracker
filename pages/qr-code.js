@@ -5,7 +5,7 @@ import Loader from "../components/common/Loader";
 import useGetData from "../hooks/useGetData";
 import { useQRCode } from "next-qrcode";
 import AdminQR from "../components/QRCode/AdminQR";
-import PosterQR from "../components/QRCode/PosterQr";
+import PosterQR from "../components/QRCode/PosterQR";
 
 function QRCodepage() {
   const [selectedSite, setSelectedSite] = useState("");
