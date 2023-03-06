@@ -5,13 +5,20 @@ import { toast } from "react-toastify";
 // import { useRouter } from "next/router";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
+import useGetData from "./useGetData";
 
 function usePostData(path) {
   // const [submitted, setSubmitted] = useState("");
   // const { data } = useSession();
   // const { token, id } = data ? data.user : "";
 
+  const { data: session } = useSession();
+
+  const adminId = session?.user?.id;
+
   const router = useRouter();
+
+  const { mutate, isLoading } = useGetData(`/all/poster/${adminId}`);
 
   const url = `${API_URL}${path}`;
 
@@ -34,11 +41,12 @@ function usePostData(path) {
     const data = await res.json();
 
     if (res.ok) {
+      mutate();
       console.log("success", data);
       toast.success("Submitted Succcessfully");
       // setSubmitted(true);
       goto && router.push(`${goto}`);
-      formik.resetForm();
+      // formik.resetForm();
     } else {
       console.log("error", data);
       // setSubmitted(false);

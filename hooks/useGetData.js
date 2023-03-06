@@ -1,13 +1,13 @@
-// import Cookies from "js-cookie";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { API_URL } from "../config";
+// import Cookies from "js-cookie";
+// import { useEffect, useState } from "react";
 // import { useQuery } from "react-query";
 // import { API_URL, token, id, identity_id } from "../../config";
-import { API_URL } from "../config";
 
 function useGetData(route) {
-  const { data, status } = useSession();
+  // const { data, status } = useSession();
   // const { token, id, identity_id } = data ? data.user : "";
 
   // console.log("access data is", data);
@@ -63,12 +63,21 @@ function useGetData(route) {
   const url = `${API_URL}${route}`;
   // console.log("test", url);
   // const { data: fetchedData, error } = useSWR(`${API_URL}${route}`, fetcher);
-  const { data: fetchedData, error } = useSWR(url, fetcher);
+  const {
+    data: fetchedData,
+    isLoading,
+    // isValidating,
+    error,
+    mutate,
+  } = useSWR(url, fetcher);
 
   return {
     fetchedData: fetchedData ? fetchedData : "",
-    isLoading: !error && !fetchedData,
+    // isLoading: !error && !fetchedData,
+    isLoading,
     isError: error,
+    mutate,
+    // isValidating,
   };
 
   // with useEffect

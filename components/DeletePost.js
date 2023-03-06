@@ -1,31 +1,20 @@
 import { useSession } from "next-auth/react";
-// import { useRouter } from "next/router";
-import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { API_URL } from "../config";
-// import useGetData from "../hooks/useGetData";
-import useToggle from "../hooks/useToggle";
+
+import useGetData from "../hooks/useGetData";
 
 function DeletePost({ posterInfo }) {
-  // const {
-  //   toggle: showDeleteModal,
-  //   setToggle: setShowDeleteModal,
-  //   node,
-  // } = useToggle();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [disableDelete, setDisableDelete] = useState(false);
 
-  const router = useRouter();
-  // const pathname = usePathname();
-
   const { data: session } = useSession();
-
   const adminId = session?.user?.id;
 
-  // console.log("deleted", posterInfo);
+  const { mutate } = useGetData(`/all/poster/${adminId}`);
 
-  // const getData = useGetData(`/all/poster/${posterInfo._id}`);
+  console.log("fetched", mutate);
 
   const handleDelete = async () => {
     setDisableDelete(true);
@@ -39,20 +28,18 @@ function DeletePost({ posterInfo }) {
 
     const data = await res.json();
 
+    await mutate();
+
     if (res.ok) {
       console.log("success", data);
       toast.success(`Poster ${posterInfo.username} Deleted`);
-      setShowDeleteModal(false);
-      setDisableDelete(false);
-      router.refresh();
-      // getData();
-      // router.replace(pathname);
     } else {
       console.log("error", data);
       toast.success("Something went wrong");
-      setDisableDelete(false);
-      setShowDeleteModal(false);
     }
+
+    setShowDeleteModal(false);
+    setDisableDelete(false);
   };
 
   return (
@@ -65,14 +52,12 @@ function DeletePost({ posterInfo }) {
       </button>
 
       {showDeleteModal && (
-        // <div className="">
         <div className="fixed inset-0 z-30 bg-black bg-opacity-50 h-screen w-full overflow-y-hidden">
           <div className="h-screen flex justify-center items-center">
             <div className="mx-2 bg-white p-3 lg:p-8 rounded-lg">
               <div className="pb-4 border-b">
                 <p className="text-center text-xl lg:text-2xl text-gray-800">
-                  {`Are you sure you want to delete Poster "${posterInfo.username}
-                  "?`}
+                  {`Are you sure you want to delete Poster "${posterInfo.username}"?`}
                 </p>
               </div>
 
@@ -95,20 +80,18 @@ function DeletePost({ posterInfo }) {
                     disabled={disableDelete}
                   >
                     Delete
-                    {/* {!disableDelete ? "Delete" : "Deleting"} */}
                   </button>
                 </div>
               ) : (
                 <div className="mt-5 lg:mt-8 flex justify-center items-center">
                   <button className="bg-red-600/50  text-white font-semibold px-4 py-2 rounded cursor-not-allowed">
-                    Deleting.....
+                    Deleting . . .
                   </button>
                 </div>
               )}
             </div>
           </div>
         </div>
-        // </div>
       )}
     </div>
   );
