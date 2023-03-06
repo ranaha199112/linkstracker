@@ -46,7 +46,7 @@ function usePostData(path) {
       toast.success("Submitted Succcessfully");
       // setSubmitted(true);
       goto && router.push(`${goto}`);
-      // formik.resetForm();
+      formik.resetForm();
     } else {
       console.log("error", data);
       // setSubmitted(false);
