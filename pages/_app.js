@@ -9,8 +9,6 @@ import { Analytics } from "@vercel/analytics/react";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
-      <Analytics />
-
       <SessionProvider session={session}>
         <NextNProgress options={{ showSpinner: false }} />
         <ToastContainer
@@ -21,6 +19,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
+      <Analytics />
     </>
   );
 }

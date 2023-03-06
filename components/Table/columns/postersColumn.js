@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DeletePost from "../../DeletePost";
 
 export const postersColumn = [
   {
@@ -29,10 +30,10 @@ export const postersColumn = [
     accessor: "_id",
     disableSortBy: true,
     width: 200,
-    Cell: ({ value }) => (
+    Cell: ({ row }) => (
       <div className="flex justify-center items-center gap-2">
         <div className="">
-          <Link href={`/posters/details/${value}`}>
+          <Link href={`/posters/details/${row.original._id}`}>
             <button className="bg-cyan-600 text-xs text-white font-semibold px-2 py-1 rounded">
               Details
             </button>
@@ -40,18 +41,14 @@ export const postersColumn = [
         </div>
 
         <div className="">
-          <Link href={`/posters/edit/${value}`}>
+          <Link href={`/posters/edit/${row.original._id}`}>
             <button className="bg-slate-600 text-xs text-white font-semibold px-2 py-1 rounded">
               Edit
             </button>
           </Link>
         </div>
 
-        <div className="">
-          <button className="bg-red-600 text-xs text-white font-semibold px-2 py-1 rounded">
-            Delete
-          </button>
-        </div>
+        <DeletePost posterInfo={row.original} />
       </div>
     ),
   },
