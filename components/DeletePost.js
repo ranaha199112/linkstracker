@@ -8,12 +8,12 @@ import { API_URL } from "../config";
 import useToggle from "../hooks/useToggle";
 
 function DeletePost({ posterInfo }) {
-  const {
-    toggle: showDeleteModal,
-    setToggle: setShowDeleteModal,
-    node,
-  } = useToggle();
-  // const [showDeleteModal, setShowDeleteModal] = useState(false);
+  // const {
+  //   toggle: showDeleteModal,
+  //   setToggle: setShowDeleteModal,
+  //   node,
+  // } = useToggle();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [disableDelete, setDisableDelete] = useState(false);
 
   const router = useRouter();
@@ -66,9 +66,9 @@ function DeletePost({ posterInfo }) {
 
       {showDeleteModal && (
         // <div className="">
-        <div className="fixed inset-0 z-30 bg-black bg-opacity-50 h-screen w-full">
+        <div className="fixed inset-0 z-30 bg-black bg-opacity-50 h-screen w-full overflow-y-hidden">
           <div className="h-screen flex justify-center items-center">
-            <div ref={node} className="mx-2 bg-white p-3 lg:p-8 rounded-lg">
+            <div className="mx-2 bg-white p-3 lg:p-8 rounded-lg">
               <div className="pb-4 border-b">
                 <p className="text-center text-xl lg:text-2xl text-gray-800">
                   {`Are you sure you want to delete Poster "${posterInfo.username}
@@ -81,21 +81,30 @@ function DeletePost({ posterInfo }) {
                 deleted. This action is irreversible.`}
               </p>
 
-              <div className="mt-5 lg:mt-8 flex justify-center gap-7 items-center">
-                <button
-                  className="bg-blue-600  text-white font-semibold px-4 py-2 rounded"
-                  onClick={() => setShowDeleteModal(false)}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="bg-red-600  text-white font-semibold px-4 py-2 rounded disabled:bg-opacity-50"
-                  onClick={handleDelete}
-                  disabled={disableDelete}
-                >
-                  {!disableDelete ? "Delete" : "Deleting"}
-                </button>
-              </div>
+              {!disableDelete ? (
+                <div className="mt-5 lg:mt-8 flex justify-center gap-7 items-center">
+                  <button
+                    className="bg-blue-600  text-white font-semibold px-4 py-2 rounded"
+                    onClick={() => setShowDeleteModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="bg-red-600  text-white font-semibold px-4 py-2 rounded disabled:bg-opacity-50"
+                    onClick={handleDelete}
+                    disabled={disableDelete}
+                  >
+                    Delete
+                    {/* {!disableDelete ? "Delete" : "Deleting"} */}
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-5 lg:mt-8 flex justify-center items-center">
+                  <button className="bg-red-600/50  text-white font-semibold px-4 py-2 rounded cursor-not-allowed">
+                    Deleting.....
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
