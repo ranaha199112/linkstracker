@@ -14,8 +14,6 @@ function DeletePost({ posterInfo }) {
 
   const { mutate } = useGetData(`/all/poster/${adminId}`);
 
-  console.log("fetched", mutate);
-
   const handleDelete = async () => {
     setDisableDelete(true);
 

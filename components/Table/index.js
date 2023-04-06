@@ -112,7 +112,7 @@ function Table({ columnsHeading, usersData }) {
 
   return (
     // <div className="flex flex-col items-stretch  px-7 py-10">
-    <div className="py-10 ">
+    <div className="py-10">
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <div className="flex flex-col items-stretch overflow-x-auto">
         <table {...getTableProps()} className="table-auto text-xs lg:text-base">

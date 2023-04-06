@@ -7,7 +7,7 @@ import { API_URL } from "../config";
 // import { API_URL, token, id, identity_id } from "../../config";
 
 function useGetData(route) {
-  // const { data, status } = useSession();
+  const { data: session, status } = useSession();
   // const { token, id, identity_id } = data ? data.user : "";
 
   // console.log("access data is", data);
@@ -48,12 +48,13 @@ function useGetData(route) {
   const fetcher = async (url) => {
     const res =
       // status === "authenticated" &&
-      await fetch(url, {
+      session &&
+      (await fetch(url, {
         headers: {
           "Content-Type": "application/json",
           // Authorization: `Bearer ${token}`,
         },
-      });
+      }));
     const fetchedData = await res.json();
 
     console.log("fetched", fetchedData);
