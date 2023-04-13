@@ -1,6 +1,7 @@
 import Cards from "../components/Cards";
 import { FaHome } from "react-icons/fa";
 import { useSession } from "next-auth/react";
+import Marquee from "react-fast-marquee";
 // import { useEffect, useState } from "react";
 import useGetData from "../hooks/useGetData";
 
@@ -30,11 +31,25 @@ export default function Home() {
         </span>
         <h1 className="text-2xl font-bold text-custom-gray2">Dashboard</h1>
       </div>
+      <a href="https://www.back4page.com" target="_blank" rel="noreferrer">
+        <div className="mt-7 bg-cyan-700 px-5 py-3 text-white font-semibold">
+          {/* <marquee>Need more traffic? visit back4page.com</marquee> */}
+          <Marquee gradient={false} speed={150}>
+            <span className="mr-20 md:mr-0">
+              Need more traffic? visit back4page.com
+            </span>
+          </Marquee>
+        </div>
+      </a>
 
       {fetchedData.status !== true && !isLoading && (
-        <div className="mt-7 bg-red-700 px-5 py-3 text-white font-semibold">
-          A new feature QR Code Generator is added. Please contact with admin to
-          activate.
+        <div className="mt-2 bg-red-700 px-5 py-3 text-white font-semibold">
+          <Marquee gradient={false} speed={150}>
+            <span className="mr-20 md:mr-0">
+              A new feature QR Code Generator is added. Please contact with
+              admin to activate.
+            </span>
+          </Marquee>
         </div>
       )}
 
