@@ -33,7 +33,6 @@ export default function Home() {
       </div>
       <a href="https://www.back4page.com" target="_blank" rel="noreferrer">
         <div className="mt-7 bg-cyan-700 px-5 py-3 text-white font-semibold">
-          {/* <marquee>Need more traffic? visit back4page.com</marquee> */}
           <Marquee gradient={false} speed={150}>
             <span className="mr-20 md:mr-0">
               Need more traffic? visit back4page.com
@@ -42,9 +41,9 @@ export default function Home() {
         </div>
       </a>
 
-      {fetchedData.status !== true && !isLoading && (
+      {session && fetchedData.status !== true && !isLoading && (
         <div className="mt-2 bg-red-700 px-5 py-3 text-white font-semibold">
-          <Marquee gradient={false} speed={150}>
+          <Marquee gradient={false} speed={130}>
             <span className="mr-20 md:mr-0">
               A new feature QR Code Generator is added. Please contact with
               admin to activate.
