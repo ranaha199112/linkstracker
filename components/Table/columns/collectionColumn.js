@@ -24,6 +24,16 @@ export const collectionColumn = [
     width: "auto",
   },
   {
+    Header: "Mail",
+    accessor: "mail",
+    width: "auto",
+  },
+  {
+    Header: "mail Password",
+    accessor: "mailPass",
+    width: "auto",
+  },
+  {
     Header: "Username",
     accessor: "username",
     width: "auto",
