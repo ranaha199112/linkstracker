@@ -12,7 +12,7 @@ export default function Home() {
   const { adminId } = session ? session.user : "";
   // const qrCodeStatus = data?.user?.qrCodeStatus;
 
-  const { fetchedData, isLoading } = useGetData(
+  const { data: fetchedData, isLoading } = useGetData(
     `/qrcode/status/check/${adminId}`
   );
 
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </a>
 
-      {session && fetchedData.status !== true && !isLoading && (
+      {session && fetchedData?.data?.status !== true && !isLoading && (
         <div className="mt-2 bg-red-700 px-5 py-3 text-white font-semibold">
           <Marquee gradient={false} speed={130}>
             <span className="mr-20 md:mr-0">

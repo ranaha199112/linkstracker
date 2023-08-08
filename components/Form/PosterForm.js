@@ -6,6 +6,8 @@ import { CheckboxField, TextField } from "../common/InputField";
 import useGetData from "../../hooks/useGetData";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 function PosterForm({ id, adminId }) {
   // const { data: session } = useSession();
@@ -21,9 +23,14 @@ function PosterForm({ id, adminId }) {
 
   const [linksError, setLinksError] = useState(false);
 
-  const { postData } = usePostData("/admin/add");
+  const { data: fetchedData } = useGetData(`/link/get/${id}`);
 
-  const { fetchedData } = useGetData(`/link/get/${id}`);
+  const { mutate, isLoading, isError, error, isSuccess } = usePostData({
+    path: "/admin/add",
+    revalidate: `/all/poster/${id}`,
+    // onSuccess,
+    // onError,
+  });
 
   const initialvalues = {
     username: "",
@@ -44,7 +51,7 @@ function PosterForm({ id, adminId }) {
 
   // console.log("links", fetchedData?.users);
 
-  const fetchedLinks = fetchedData?.users;
+  const fetchedLinks = fetchedData?.data?.users;
 
   const handleSubmit = (values, formik) => {
     const { username, password, posterId, links } = values;
@@ -60,15 +67,8 @@ function PosterForm({ id, adminId }) {
       setLinksError(true);
     } else {
       setLinksError(false);
-      // console.log("submitposter", submitvalues);
-      const goto = "/posters";
-      // const resetForm = true
-      postData(submitvalues, goto, formik);
+      mutate(submitvalues, { onSuccess: () => formik.resetForm() });
     }
-
-    // console.log(submitvalues);
-
-    // postData(submitvalues, formik);
   };
 
   return (
@@ -131,7 +131,8 @@ function PosterForm({ id, adminId }) {
             <div className="mt-10 flex justify-start">
               <button
                 type="submit"
-                className=" px-9 py-4 text-white text-xs tracking-widest font-bold rounded bg-custom-blue5 hover:bg-custom-blue active:scale-95 transition duration-300 uppercase"
+                className="px-9 py-4 text-white text-xs tracking-widest font-bold rounded bg-custom-blue5 hover:bg-custom-blue active:scale-95 transition duration-300 uppercase disabled:bg-opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading}
               >
                 Submit
               </button>

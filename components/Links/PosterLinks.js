@@ -12,11 +12,17 @@ function PosterLinks({ id, admin }) {
   // const { data: session } = useSession();
   // const { id, username, admin, adminId } = session ? session.user : "";
 
-  const { fetchedData, isLoading } = useGetData(`/link/get/${id}/${admin}`);
-  console.log("links", fetchedData);
+  // const { data: fetchedData, isLoading } = useGetData(
+  //   `/link/get/${id}/${admin}`
+  // );
+  const { data: fetchedData, isLoading } = useGetData(
+    `/link/get/all/hello/world/com/data/${id}/${admin}`
+  );
+
+  // console.log("links", fetchedData);
 
   // const allSites = fetchedData?.sites;
-  const activeSites = fetchedData?.data;
+  const activeSites = fetchedData?.data?.data;
 
   const sites = activeSites?.map((site) => {
     return {

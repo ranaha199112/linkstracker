@@ -45,7 +45,7 @@ function Sidebar({ showMenu, setShowMenu, node, name, navLinks }) {
     >
       <div
         ref={node}
-        className={`h-screen bg-custom-blue z-30 top-0 bottom-0 fixed lg:sticky sidebar text-white lg:translate-x-0 w-[264px] ease-out duration-300 ${
+        className={`h-screen overflow-y-auto bg-custom-blue z-30 top-0 bottom-0 fixed lg:sticky sidebar text-white lg:translate-x-0 w-[264px] ease-out duration-300 ${
           showMenu ? "translate-x-0" : "-translate-x-full"
         }
       `}

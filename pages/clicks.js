@@ -15,11 +15,9 @@ function ClicksPage() {
 
   const route = admin ? `/${adminId}` : `/${adminId}/${posterId}`;
 
-  const { fetchedData, isLoading, isError } = useGetData(route);
+  const { data: fetchedData, isLoading, isError } = useGetData(route);
 
-  console.log("clicks", fetchedData);
-
-  const clicksData = fetchedData?.click;
+  const clicksData = fetchedData?.data?.click;
 
   return (
     <div className="relative">

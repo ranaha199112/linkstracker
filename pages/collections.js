@@ -13,9 +13,9 @@ function CollectionsPage() {
   const id = data?.user?.id;
   // console.log("poster session", id);
 
-  const { fetchedData, isLoading } = useGetData(`/poster/details/${id}`);
+  const { data: fetchedData, isLoading } = useGetData(`/poster/details/${id}`);
 
-  const details = fetchedData?.data?.details;
+  const details = fetchedData?.data?.data?.details;
 
   console.log(details);
 

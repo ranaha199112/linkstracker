@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { API_URL } from "../config";
 
 import useGetData from "../hooks/useGetData";
+import useDeleteData from "../hooks/useDeleteData";
 
 function DeletePost({ posterInfo }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -12,32 +13,46 @@ function DeletePost({ posterInfo }) {
   const { data: session } = useSession();
   const adminId = session?.user?.id;
 
-  const { mutate } = useGetData(`/all/poster/${adminId}`);
+  // const { mutate } = useGetData(`/all/poster/${adminId}`);
 
-  const handleDelete = async () => {
-    setDisableDelete(true);
+  const { mutate, isLoading, isSuccess, isError } = useDeleteData({
+    path: `/delete/poster/${posterInfo._id}/${adminId}`,
+    revalidate: `/all/poster/${adminId}`,
+  });
 
-    const res = await fetch(
-      `${API_URL}/delete/poster/${posterInfo._id}/${adminId}`,
-      {
-        method: "DELETE",
-      }
-    );
+  const handleDelete = () => {
+    mutate("", {
+      onSuccess: () => {
+        toast.success(`Poster ${posterInfo.username} Deleted`);
+      },
+      onSettled: () => {
+        setShowDeleteModal(false);
+      },
+    });
 
-    const data = await res.json();
+    // setDisableDelete(true);
 
-    await mutate();
+    // const res = await fetch(
+    //   `${API_URL}/delete/poster/${posterInfo._id}/${adminId}`,
+    //   {
+    //     method: "DELETE",
+    //   }
+    // );
 
-    if (res.ok) {
-      console.log("success", data);
-      toast.success(`Poster ${posterInfo.username} Deleted`);
-    } else {
-      console.log("error", data);
-      toast.success("Something went wrong");
-    }
+    // const data = await res.json();
 
-    setShowDeleteModal(false);
-    setDisableDelete(false);
+    // // await mutate();
+
+    // if (res.ok) {
+    //   console.log("success", data);
+    //   toast.success(`Poster ${posterInfo.username} Deleted`);
+    // } else {
+    //   console.log("error", data);
+    //   toast.success("Something went wrong");
+    // }
+
+    // setShowDeleteModal(false);
+    // setDisableDelete(false);
   };
 
   return (
@@ -64,7 +79,7 @@ function DeletePost({ posterInfo }) {
                 deleted. This action is irreversible.`}
               </p>
 
-              {!disableDelete ? (
+              {!isLoading ? (
                 <div className="mt-5 lg:mt-8 flex justify-center gap-7 items-center">
                   <button
                     className="bg-blue-600  text-white font-semibold px-4 py-2 rounded"
@@ -75,7 +90,7 @@ function DeletePost({ posterInfo }) {
                   <button
                     className="bg-red-600  text-white font-semibold px-4 py-2 rounded disabled:bg-opacity-50"
                     onClick={handleDelete}
-                    disabled={disableDelete}
+                    disabled={isLoading}
                   >
                     Delete
                   </button>

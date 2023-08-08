@@ -19,7 +19,7 @@ export default async function middleware(req) {
   const qrCodeStatus = jwt?.user?.qrCodeStatus;
   // const role = false;
 
-  console.log("middleware token", role);
+  // console.log("middleware token", role);
 
   if (!user) {
     return NextResponse.redirect(`${origin}/sign-in`);

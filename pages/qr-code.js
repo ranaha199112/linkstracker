@@ -15,13 +15,12 @@ function QRCodepage() {
 
   const isAdmin = !admin && 0;
 
-  const { fetchedData: qrCode, isLoading } = useGetData(
+  const { data: qrCode, isLoading } = useGetData(
     `/qrcode/status/check/${adminId}`
   );
 
   const apiLink = admin ? `/all/poster/${id}` : `/link/get/${id}/${isAdmin}`;
-  const { fetchedData: fetchedData2, isLoading: isLoading2 } =
-    useGetData(apiLink);
+  const { data: fetchedData2, isLoading: isLoading2 } = useGetData(apiLink);
 
   // console.log("session", session);
 
@@ -37,7 +36,7 @@ function QRCodepage() {
       </div>
 
       <Loader isLoading={isLoading || isLoading2}>
-        {qrCode.status === true ? (
+        {qrCode?.data.status === true ? (
           <div className="mt-7 flex flex-col lg:flex-row gap-5">
             <div className="lg:sticky top-[95px] lg:self-start lg:min-w-[450px] min-h-[300px] bg-white p-8 rounded shadow-md">
               <h4 className="text-xl font-semibold">Generate QR Code</h4>
@@ -58,7 +57,7 @@ function QRCodepage() {
                     isAdmin={isAdmin}
                     selectedSite={selectedSite}
                     setSelectedSite={setSelectedSite}
-                    fetchedData2={fetchedData2}
+                    fetchedData2={fetchedData2?.data}
                   />
                 ) : (
                   <AdminQR
@@ -67,7 +66,7 @@ function QRCodepage() {
                     adminId={adminId}
                     selectedSite={selectedSite}
                     setSelectedSite={setSelectedSite}
-                    fetchedData2={fetchedData2}
+                    fetchedData2={fetchedData2?.data}
                   />
                 )}
               </div>

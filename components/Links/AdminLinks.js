@@ -11,11 +11,16 @@ function AdminLinks({ id, admin }) {
   // const { data: session } = useSession();
   // const { id, username, admin, adminId } = session ? session.user : "";
 
-  const { fetchedData, isLoading } = useGetData(`/link/get/${id}/${admin}`);
-  console.log("links", fetchedData);
+  // const { data: fetchedData, isLoading } = useGetData(
+  //   `/link/get/${id}/${admin}`
+  // );
 
-  const allSites = fetchedData?.sites;
-  const activeSites = fetchedData?.data;
+  const { data: fetchedData, isLoading } = useGetData(
+    `/link/get/all/hello/world/com/data/${id}/${admin}`
+  );
+
+  const allSites = fetchedData?.data?.sites;
+  const activeSites = fetchedData?.data?.data;
 
   // const x = allSites?.map((site) => site.name);
   // const y = activeSites?.map((site) => site);
@@ -47,7 +52,6 @@ function AdminLinks({ id, admin }) {
       status: checkStatus(),
     };
   });
-  console.log("table", linksData);
 
   // const checkStatus = (site) => {
   //   if (activeSites?.includes(site.name)) {

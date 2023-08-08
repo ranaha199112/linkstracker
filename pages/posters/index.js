@@ -22,12 +22,18 @@ function Posterspage() {
   const { data: session } = useSession();
   const { id, username, admin, adminId } = session ? session.user : "";
 
-  const { fetchedData, isLoading } = useGetData(`/all/poster/${id}`);
+  const {
+    data: fetchedData,
+    isLoading,
+    isError,
+  } = useGetData(`/all/poster/${id}`);
   // console.log("postersss", fetchedData);
 
   // console.log("session", session);
 
-  const userData = fetchedData?.data?.posters;
+  console.log("fetchedddd", fetchedData);
+
+  const userData = fetchedData?.data?.data?.posters;
 
   // console.log("ppp", fetchedData.data?.[0].posters);
   const table = userData && (

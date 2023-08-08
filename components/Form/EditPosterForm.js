@@ -61,7 +61,16 @@ function EditPosterForm({
 
   const [linksError, setLinksError] = useState(false);
 
-  const { postData } = usePostData("/add/newsite/update");
+  // const { postData } = usePostData("/add/newsite/update");
+
+  const { mutate, isLoading, isError, error, isSuccess } = usePostData({
+    path: "/add/newsite/update",
+    revalidate: `/all/poster/${id}`,
+    // onSuccess,
+    // onError,
+  });
+
+  const router = useRouter();
 
   const handleSubmit = (values, formik) => {
     const { username, password, yourLinks, availableLinks } = values;
@@ -82,9 +91,10 @@ function EditPosterForm({
     } else {
       setLinksError(false);
       // console.log("edit", submitvalues);
-      const goto = "/posters";
+      // const goto = "/posters";
       // const resetForm = formik.resetForm();
-      postData(submitvalues, goto, formik);
+      // postData(submitvalues, goto, formik);
+      mutate(submitvalues, { onSuccess: () => router.push("/posters") });
     }
   };
 
@@ -180,7 +190,8 @@ function EditPosterForm({
             <div className="mt-10 flex justify-start">
               <button
                 type="submit"
-                className=" px-9 py-4 text-white text-xs tracking-widest font-bold rounded bg-custom-blue5 hover:bg-custom-blue active:scale-95 transition duration-300 uppercase"
+                className=" px-9 py-4 text-white text-xs tracking-widest font-bold rounded bg-custom-blue5 hover:bg-custom-blue active:scale-95 transition duration-300 uppercase disabled:bg-opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading}
               >
                 Submit
               </button>

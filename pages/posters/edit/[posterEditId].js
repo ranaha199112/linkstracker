@@ -15,20 +15,19 @@ function PosterEditPage() {
     query: { posterEditId },
   } = useRouter();
 
-  const { fetchedData, isLoading } = useGetData(
+  const { data: fetchedData, isLoading } = useGetData(
     `/poster/details/${posterEditId}`
   );
-  const username = fetchedData?.data?.username;
-  const password = fetchedData?.data?.password;
-  const posterId = fetchedData?.data?.posterId;
-  const yourLinks = fetchedData?.data?.links;
-  // console.log("poster details", username);
+  const username = fetchedData?.data?.data?.username;
+  const password = fetchedData?.data?.data?.password;
+  const posterId = fetchedData?.data?.data?.posterId;
+  const yourLinks = fetchedData?.data?.data?.links;
 
-  const { fetchedData: fetchedLinks, isLoading: isLoading2 } = useGetData(
+  const { data: fetchedLinks, isLoading: isLoading2 } = useGetData(
     `/link/get/${id}`
   );
 
-  const allLinks = fetchedLinks?.users;
+  const allLinks = fetchedLinks?.data?.users;
 
   const linksAvailable = allLinks?.filter((link) => {
     const newLink = `${link}/${adminId}/${posterId}`;
