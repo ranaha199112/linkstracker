@@ -24,7 +24,7 @@ function Header({ admin, username, showMenu, setShowMenu }) {
           </div>
 
           <div className="text-xl text-white font-bold lg:hidden">
-            Shannon Links
+            Fast Tracker
           </div>
 
           <div className="flex justify-between items-center gap-5 lg:gap-[80px]">
