@@ -52,7 +52,7 @@ function Sidebar({ showMenu, setShowMenu, node, name, navLinks }) {
       >
         <div className="  items-center gap-10">
           <div className="text-white py-[16px] font-semibold flex justify-between items-center">
-            <h1 className=" pl-6 text-xl lg:text-2xl">Fast Tracker</h1>
+            <h1 className=" pl-6 text-xl lg:text-2xl">Links Tracker</h1>
             <span
               className="p-1 mr-5 rounded-full border-2 border-custom-blue2 text-custom-blue2 lg:hidden"
               onClick={() => setShowMenu(!showMenu)}
