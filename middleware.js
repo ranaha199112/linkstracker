@@ -25,12 +25,12 @@ export default async function middleware(req) {
     return NextResponse.redirect(`${origin}/sign-in`);
   }
 
-  if (user && pathname.includes("/qr-code")) {
-    if (qrCodeStatus === false) {
-      return NextResponse.redirect(`${origin}/404`);
-    }
-    return NextResponse.next();
-  }
+  // if (user && pathname.includes("/qr-code")) {
+  //   if (qrCodeStatus === false) {
+  //     return NextResponse.redirect(`${origin}/404`);
+  //   }
+  //   return NextResponse.next();
+  // }
 
   if (user && pathname.includes("/posters")) {
     if (!role) {
@@ -75,7 +75,7 @@ export const config = {
     "/users",
     "/id-card",
     "/link",
-    "/clicks",
+    // "/clicks",
     "/collections",
     "/cash-app",
     "/qr-code",

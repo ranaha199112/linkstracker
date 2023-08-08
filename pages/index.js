@@ -64,7 +64,6 @@ import {
   FaCalculator,
   FaHome,
   FaHourglassEnd,
-  FaMousePointer,
   FaUserAlt,
 } from "react-icons/fa";
 import Loader from "../components/common/Loader";
@@ -82,26 +81,40 @@ function HomePage() {
 
   const { data: fetchedData, isLoading, isError } = useGetData(route);
 
+  const {
+    data: fetchedData2,
+    isLoading: isLoading2,
+    isError: isError2,
+  } = useGetData(
+    `/today/app/details/data/poster/hello/found/end/${
+      admin ? adminId : posterId
+    }`
+  );
+
+  // console.log("fetchedata2", fetchedData2?.data);
+
   const clicksData = fetchedData?.data?.click;
 
-  console.log("clicksData", clicksData);
+  const cardsData = fetchedData2?.data;
+
+  // console.log("clicksData", clicksData);
 
   const cards = [
     {
       name: "Today Found",
-      count: 10,
+      count: cardsData?.todayFound,
       color: "bg-[#E91F63]",
       icon: <FaUserAlt />,
     },
     {
       name: "Today Click",
-      count: 10,
+      count: cardsData?.todayClick,
       color: "bg-[#8AC24B]",
       icon: <FaHourglassEnd />,
     },
     {
       name: "Total Found",
-      count: 10,
+      count: cardsData?.totalFound,
       color: "bg-[#FE8519]",
       icon: <FaCalculator />,
     },
@@ -116,27 +129,27 @@ function HomePage() {
         <h1 className="text-2xl font-bold text-custom-gray2">Dashboard</h1>
       </div>
 
-      <div className="mt-12 flex flex-col lg:flex-row justify-between gap-5 lg:gap-10">
-        {cards.map((card, i) => (
-          <div
-            key={i}
-            className={`h-[97px] w-full rounded-md overflow-hidden ${card.color}`}
-          >
-            <div className="flex h-full">
-              <div className="h-full w-[96px] bg-black/30 text-white flex justify-center items-center text-[34px]">
-                {card.icon}
-              </div>
+      <Loader isLoading={isLoading || isLoading2}>
+        <div className="mt-12 flex flex-col lg:flex-row justify-between gap-5 lg:gap-10">
+          {cards.map((card, i) => (
+            <div
+              key={i}
+              className={`h-[97px] w-full rounded-md overflow-hidden ${card.color}`}
+            >
+              <div className="flex h-full">
+                <div className="h-full w-[96px] bg-black/30 text-white flex justify-center items-center text-[34px]">
+                  {card.icon}
+                </div>
 
-              <div className="py-2 px-3 text-white">
-                <p className="uppercase font-semibold">{card.name}</p>
-                <p className="font-bold text-xl">{card.count}</p>
+                <div className="py-2 px-3 text-white">
+                  <p className="uppercase font-semibold">{card.name}</p>
+                  <p className="font-bold text-xl">{card.count}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <Loader isLoading={isLoading}>
         <div className="mt-10 bg-white p-4 lg:p-8  rounded shadow-md">
           <h4 className="text-xl font-semibold">Total Clicks</h4>
           {clicksData && (

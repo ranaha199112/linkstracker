@@ -22,12 +22,12 @@ function QRCodepage() {
   const apiLink = admin ? `/all/poster/${id}` : `/link/get/${id}/${isAdmin}`;
   const { data: fetchedData2, isLoading: isLoading2 } = useGetData(apiLink);
 
-  // console.log("session", session);
+  console.log("qrcode", qrCode);
 
   const { Image } = useQRCode();
 
   return (
-    <div className="">
+    <div className="relative">
       <div className="flex items-center gap-3">
         <span className="text-[28px] text-custom-blue2">
           <FaQrcode />
@@ -73,7 +73,9 @@ function QRCodepage() {
             </div>
           </div>
         ) : (
-          <div className="mt-7 text-lg">QR Code Inactive</div>
+          <div className="mt-20 text-xl text-center font-semibold">
+            QR Code Inactive. Contact with admin to activate this feature.
+          </div>
         )}
       </Loader>
     </div>
