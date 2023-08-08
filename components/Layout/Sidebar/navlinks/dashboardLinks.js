@@ -44,11 +44,11 @@ export const dashboardLinks = [
     link: "/links",
     icon: <FaGlobe />,
   },
-  {
-    name: "Clicks",
-    link: "/clicks",
-    icon: <FaMousePointer />,
-  },
+  // {
+  //   name: "Clicks",
+  //   link: "/clicks",
+  //   icon: <FaMousePointer />,
+  // },
   {
     name: "QR Code",
     link: "/qr-code",
