@@ -11,7 +11,7 @@ function QRCodepage() {
   const [selectedSite, setSelectedSite] = useState("");
 
   const { data: session } = useSession();
-  const { id, admin, adminId } = session ? session.user : "";
+  const { id, admin, adminId, qrCodeStatus } = session ? session.user : "";
 
   const isAdmin = !admin && 0;
 
@@ -22,7 +22,7 @@ function QRCodepage() {
   const apiLink = admin ? `/all/poster/${id}` : `/link/get/${id}/${isAdmin}`;
   const { data: fetchedData2, isLoading: isLoading2 } = useGetData(apiLink);
 
-  console.log("qrcode", qrCode);
+  // console.log("qrcode", qrCode);
 
   const { Image } = useQRCode();
 
@@ -36,7 +36,8 @@ function QRCodepage() {
       </div>
 
       <Loader isLoading={isLoading || isLoading2}>
-        {qrCode?.data.status === true ? (
+        {/* {qrCode?.data.status === true ? ( */}
+        {qrCodeStatus === true ? (
           <div className="mt-7 flex flex-col lg:flex-row gap-5">
             <div className="lg:sticky top-[95px] lg:self-start lg:min-w-[450px] min-h-[300px] bg-white p-8 rounded shadow-md">
               <h4 className="text-xl font-semibold">Generate QR Code</h4>
