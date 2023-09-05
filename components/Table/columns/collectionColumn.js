@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const collectionColumn = [
   // {
   //   Header: "serial",
@@ -42,6 +44,41 @@ export const collectionColumn = [
     Header: "Passcode",
     accessor: "passcode",
     width: "auto",
+  },
+
+  {
+    Header: "Only Card",
+    accessor: "onlyCard",
+    disableSortBy: true,
+    // width: 200,
+    Cell: ({ row }) => (
+      <div className="flex justify-center items-center">
+        {row.original.onlyCard && (
+          <Link href={row.original.onlyCard} target="_blank">
+            <p className="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200">
+              View Image
+            </p>
+          </Link>
+        )}
+      </div>
+    ),
+  },
+  {
+    Header: "Holding Card",
+    accessor: "holdingCard",
+    disableSortBy: true,
+    // width: 200,
+    Cell: ({ row }) => (
+      <div className="flex justify-center items-center">
+        {row.original.holdingCard && (
+          <Link href={row.original.holdingCard} target="_blank">
+            <p className="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200">
+              View Image
+            </p>
+          </Link>
+        )}
+      </div>
+    ),
   },
   // {
   //   Header: "verify_code",

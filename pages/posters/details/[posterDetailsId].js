@@ -106,6 +106,8 @@ function PosterDetailsPage() {
   const { posterDetailsId } = query;
   const { data, isLoading } = useGetData(`/poster/details/${posterDetailsId}`);
 
+  // console.log("poster collection", data);
+
   // const url = `${API_URL}/poster/details/${posterDetailsId}`;
 
   // const fetcher = async () => {
