@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTimeDistance } from "../../../utils/getTimeDistance";
 
 export const collectionColumn = [
   {
