@@ -73,7 +73,9 @@ function Table({ columnsHeading, usersData }) {
       columns,
       data,
       initialState: { pageSize: 20 },
-      // defaultColumn,
+      defaultColumn: {
+        minWidth: 150,
+      },
     },
     useGlobalFilter,
     useFilters,
@@ -112,7 +114,7 @@ function Table({ columnsHeading, usersData }) {
 
   return (
     // <div className="flex flex-col items-stretch  px-7 py-10">
-    <div className="py-10 w-full">
+    <div className="py-10">
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <div className="flex flex-col items-stretch overflow-x-auto">
         <table {...getTableProps()} className="table-auto text-xs lg:text-base">
@@ -123,7 +125,7 @@ function Table({ columnsHeading, usersData }) {
                   <th
                     key={i}
                     {...column.getHeaderProps({
-                      style: { width: column.width },
+                      style: { minWidth: column.minWidth, width: column.width },
                     })}
                     // style={{ width: column.width }}
                     className={`px-2 py-3 text-sm border-collapse border border-gray-100 capitalize`}
@@ -175,7 +177,7 @@ function Table({ columnsHeading, usersData }) {
                       <td
                         key={i}
                         {...cell.getCellProps()}
-                        className="px-4 py-3 text-sm text-custom-gray3 lg:break-all font-semibold border-collapse border border-gray-100"
+                        className="px-4 py-3 text-sm text-custom-gray3 font-semibold border-collapse border border-gray-100"
                       >
                         {cell.render("Cell")}
                       </td>

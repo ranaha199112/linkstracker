@@ -8,6 +8,7 @@ import { postersColumn } from "../../components/Table/columns/postersColumn";
 import Tabs from "../../components/Tabs";
 // import { API_URL, id, adminId } from "../../config";
 import useGetData from "../../hooks/useGetData";
+import { getTimeDistance } from "./../../utils/getTimeDistance";
 
 // const userData = [
 //   { username: "user1", password: "1234", posterId: "001" },
@@ -31,9 +32,17 @@ function Posterspage() {
 
   // console.log("session", session);
 
-  console.log("fetchedddd", fetchedData);
+  // console.log(
+  //   "fetchedddd",
+  //   fetchedData?.data?.data?.createdAt
+  //   // getTimeDistance(fetchedData?.data?.data?.createdAt)
+  // );
 
   const userData = fetchedData?.data?.data?.posters;
+
+  // const time = userData && getTimeDistance(fetchedData?.data?.data?.createdAt);
+
+  // console.log("time", time);
 
   // console.log("ppp", fetchedData.data?.[0].posters);
   const table = userData && (

@@ -18,7 +18,7 @@ function Loader({ isLoading, children }) {
   );
 
   return (
-    <div>
+    <>
       {isLoading && (
         <div className="absolute flex justify-center items-center h-[calc(100vh-100px)] inset-0">
           {loader}
@@ -26,7 +26,7 @@ function Loader({ isLoading, children }) {
       )}
 
       {!isLoading && <>{children}</>}
-    </div>
+    </>
   );
 }
 

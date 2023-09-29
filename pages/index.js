@@ -134,7 +134,7 @@ function HomePage() {
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`h-[97px] w-full rounded-md overflow-hidden ${card.color}`}
+              className={`min-h-[97px] w-full rounded-md overflow-hidden ${card.color}`}
             >
               <div className="flex h-full">
                 <div className="h-full w-[96px] bg-black/30 text-white flex justify-center items-center text-[34px]">
@@ -144,6 +144,9 @@ function HomePage() {
                 <div className="py-2 px-3 text-white">
                   <p className="uppercase font-semibold">{card.name}</p>
                   <p className="font-bold text-xl">{card.count}</p>
+                  <p className="mt-2 text-sm">
+                    <span className="mr-3">3.48%</span> Since last month
+                  </p>
                 </div>
               </div>
             </div>

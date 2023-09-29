@@ -1,10 +1,6 @@
 import Link from "next/link";
 
 export const collectionColumn = [
-  // {
-  //   Header: "serial",
-  //   accessor: "serial",
-  // },
   {
     Header: "website",
     accessor: "site",
@@ -19,6 +15,7 @@ export const collectionColumn = [
     Header: "password",
     accessor: "password",
     width: "auto",
+    // minWidth: 150,
   },
   {
     Header: "Code",
@@ -29,28 +26,33 @@ export const collectionColumn = [
     Header: "Mail",
     accessor: "mail",
     width: "auto",
+    // minWidth: 100,
   },
   {
     Header: "mail Password",
     accessor: "mailPass",
     width: "auto",
+    minWidth: 160,
   },
   {
     Header: "Username",
     accessor: "username",
     width: "auto",
+    // minWidth: 150,
   },
   {
     Header: "Passcode",
     accessor: "passcode",
     width: "auto",
+    // minWidth: 150,
   },
 
   {
     Header: "Only Card",
     accessor: "onlyCard",
     disableSortBy: true,
-    // width: 200,
+    width: "auto",
+    // minWidth: 150,
     Cell: ({ row }) => (
       <div className="flex justify-center items-center">
         {row.original.onlyCard && (
@@ -68,6 +70,8 @@ export const collectionColumn = [
     accessor: "holdingCard",
     disableSortBy: true,
     // width: 200,
+    // minWidth: 150,
+    width: "auto",
     Cell: ({ row }) => (
       <div className="flex justify-center items-center">
         {row.original.holdingCard && (
@@ -77,6 +81,18 @@ export const collectionColumn = [
             </p>
           </Link>
         )}
+      </div>
+    ),
+  },
+  {
+    Header: "Time",
+    accessor: "createdAt",
+    disableSortBy: true,
+    width: "auto",
+    // minWidth: 150,
+    Cell: ({ row }) => (
+      <div className="flex justify-center items-center">
+        {row.original.createdAt && getTimeDistance(row.original.createdAt)}
       </div>
     ),
   },

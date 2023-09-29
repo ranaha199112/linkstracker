@@ -1,5 +1,6 @@
 import Link from "next/link";
 import DeletePost from "../../DeletePost";
+import { getTimeDistance } from "../../../utils/getTimeDistance";
 
 export const postersColumn = [
   {
@@ -24,6 +25,17 @@ export const postersColumn = [
     //     </button>
     //   </div>
     // ),
+  },
+  {
+    Header: "Time",
+    accessor: "createdAt",
+    disableSortBy: true,
+    width: "auto",
+    Cell: ({ row }) => (
+      <div className="flex justify-center items-center">
+        {row.original.createdAt && getTimeDistance(row.original.createdAt)}
+      </div>
+    ),
   },
   {
     Header: "Options",
