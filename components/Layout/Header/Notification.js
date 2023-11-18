@@ -3,6 +3,7 @@ import { FaRegBell } from "react-icons/fa";
 import useToggle from "../../../hooks/useToggle";
 import Pusher from "pusher-js";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 // import { notificationsData } from "./notificationsData";
 
 function Notification() {
@@ -13,6 +14,8 @@ function Notification() {
 
   const { data: session } = useSession();
 
+  const adminId = session?.user.adminId;
+
   // console.log("session", session);
   // console.log("notifications", notifications);
 
@@ -22,32 +25,47 @@ function Notification() {
   };
 
   useEffect(() => {
-    const pusher = new Pusher("ff0fc3f0096af6ab8a90", {
-      cluster: "ap2",
-      encrypted: true,
-    });
+    if (adminId) {
+      const pusher = new Pusher("ff0fc3f0096af6ab8a90", {
+        cluster: "ap2",
+        encrypted: true,
+      });
 
-    const channel = pusher.subscribe("notifications");
-    channel.bind("new-notification", (data) => {
-      if (session?.user.adminId === data.adminId) {
-        setNotifications([...notifications, data.adminId]);
+      const channel = pusher.subscribe(adminId);
+      channel.bind("new-notification", (data) => {
+        setNotifications([
+          ...notifications,
+          `New collection added from ${data.name}`,
+        ]);
         playNotificationSound();
         setUnseenNotifications((prevCount) => prevCount + 1);
+        toast.success(`New collection added from ${data.name}`);
         console.log("correct notification:", data);
-      }
 
-      // setUnseenNotifications((prevCount) => prevCount + 1);
-      // setNotifications([...notifications, data.adminId]);
+        // if (session?.user.adminId === data.adminId) {
+        //   setNotifications([
+        //     ...notifications,
+        //     `New collection added from ${data.name}`,
+        //   ]);
+        //   playNotificationSound();
+        //   setUnseenNotifications((prevCount) => prevCount + 1);
+        //   toast.success("New collection added");
+        //   console.log("correct notification:", data);
+        // }
 
-      console.log("New Notification:", data);
-    });
+        // setUnseenNotifications((prevCount) => prevCount + 1);
+        // setNotifications([...notifications, data.adminId]);
 
-    return () => {
-      channel.unbind_all();
-      // channel.unbind(); // Unbind event listeners when component unmounts
-      // channel.unbind("new-notification"); // Unbind event listeners when component unmounts
-      pusher.unsubscribe("notifications");
-    };
+        // console.log("New Notification:", data);
+      });
+
+      return () => {
+        // channel.unbind_all();
+        // channel.unbind(); // Unbind event listeners when component unmounts
+        // channel.unbind("new-notification"); // Unbind event listeners when component unmounts
+        pusher.unsubscribe("notifications");
+      };
+    }
   }, []);
 
   const handleNotificationsClick = () => {
@@ -64,7 +82,7 @@ function Notification() {
         }}
       >
         <div
-          className={`p-2 group-hover:bg-gray-200 rounded-full ${
+          className={`p-2 group-hover:bg-gray-200/50 rounded-full ${
             toggle && "bg-gray-200"
           }`}
         >
@@ -73,7 +91,7 @@ function Notification() {
           />
         </div>
         {unseenNotifications > 0 && (
-          <div className="absolute -top-3 -right-2 bg-indigo-900 border-2 border-white text-sm text-white rounded-full p-[2px]  w-7 text-center  shadow-lg">
+          <div className="absolute -top-3 -right-2 bg-indigo-900 border-2 border-white text-sm text-white rounded-full p-[2px] w-7 text-center shadow-lg">
             {unseenNotifications}
           </div>
         )}
@@ -92,7 +110,7 @@ function Notification() {
                   key={i}
                   className="px-7 py-5 space-y-2 hover:bg-slate-100 transition duration-300 cursor-pointer"
                 >
-                  <p className="text-sm font-semibold ">{notification}</p>
+                  <p className="text-sm font-semibold">{notification}</p>
                   {/* <p className="text-xs font-light">{notification.time} ago</p> */}
                 </div>
               ))
