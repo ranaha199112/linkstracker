@@ -66,7 +66,7 @@ function Notification() {
         pusher.unsubscribe("notifications");
       };
     }
-  }, []);
+  }, [adminId]);
 
   const handleNotificationsClick = () => {
     setUnseenNotifications(0); // Reset the new notification count when the user clicks on the bell icon
