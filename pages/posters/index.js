@@ -40,9 +40,7 @@ function Posterspage() {
 
   const userData = fetchedData?.data?.data?.posters;
 
-  // const time = userData && getTimeDistance(fetchedData?.data?.data?.createdAt);
-
-  // console.log("time", time);
+  console.log("userData", userData);
 
   // console.log("ppp", fetchedData.data?.[0].posters);
   const table = userData && (

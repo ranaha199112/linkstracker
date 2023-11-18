@@ -32,7 +32,8 @@ function Header({ admin, username, showMenu, setShowMenu }) {
               <p className="">Username: {username}</p>
               <p className="">Role : {admin ? "Admin" : "Poster"}</p>
             </div>
-            {/* <Notification /> */}
+
+            <Notification />
 
             <button
               className="hidden lg:block bg-custom-blue5 hover:bg-opacity-80 active:scale-95 text-sm text-white font-semibold px-2 py-1 lg:px-4 lg:py-2 rounded-md transition duration-200"
