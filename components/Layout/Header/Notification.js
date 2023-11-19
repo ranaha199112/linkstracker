@@ -8,9 +8,9 @@ import { toast } from "react-toastify";
 
 function Notification() {
   const [notifications, setNotifications] = useState([]);
-  const { toggle, setToggle, node } = useToggle();
-
   const [unseenNotifications, setUnseenNotifications] = useState(0);
+
+  const { toggle, setToggle, node } = useToggle();
 
   const { data: session } = useSession();
 
@@ -33,43 +33,28 @@ function Notification() {
 
       const channel = pusher.subscribe(adminId);
       channel.bind("new-notification", (data) => {
-        setNotifications([
-          ...notifications,
+        setNotifications((prevNotifications) => [
+          ...prevNotifications,
           `New collection added from ${data.name}`,
         ]);
+
         playNotificationSound();
         setUnseenNotifications((prevCount) => prevCount + 1);
         toast.success(`New collection added from ${data.name}`);
-        console.log("correct notification:", data);
-
-        // if (session?.user.adminId === data.adminId) {
-        //   setNotifications([
-        //     ...notifications,
-        //     `New collection added from ${data.name}`,
-        //   ]);
-        //   playNotificationSound();
-        //   setUnseenNotifications((prevCount) => prevCount + 1);
-        //   toast.success("New collection added");
-        //   console.log("correct notification:", data);
-        // }
-
-        // setUnseenNotifications((prevCount) => prevCount + 1);
-        // setNotifications([...notifications, data.adminId]);
-
-        // console.log("New Notification:", data);
+        console.log("notification:", data);
       });
 
       return () => {
         // channel.unbind_all();
         // channel.unbind(); // Unbind event listeners when component unmounts
-        // channel.unbind("new-notification"); // Unbind event listeners when component unmounts
+        channel.unbind("new-notification"); // Unbind event listeners when component unmounts
         pusher.unsubscribe("notifications");
       };
     }
   }, [adminId]);
 
   const handleNotificationsClick = () => {
-    setUnseenNotifications(0); // Reset the new notification count when the user clicks on the bell icon
+    setUnseenNotifications(0);
   };
 
   return (
