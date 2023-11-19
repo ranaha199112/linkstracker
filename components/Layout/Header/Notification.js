@@ -25,6 +25,24 @@ function Notification() {
   };
 
   useEffect(() => {
+    const requestNotificationPermission = async () => {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === "granted") {
+          // Permission granted, you can now use notifications
+          console.log("Notification permission granted");
+        } else {
+          console.log("Notification permission denied");
+        }
+      } catch (error) {
+        console.error("Error requesting notification permission:", error);
+      }
+    };
+
+    requestNotificationPermission();
+  }, []);
+
+  useEffect(() => {
     if (adminId) {
       const pusher = new Pusher("ff0fc3f0096af6ab8a90", {
         cluster: "ap2",
