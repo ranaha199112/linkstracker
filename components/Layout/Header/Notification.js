@@ -40,9 +40,7 @@ function Notification() {
     };
 
     requestNotificationPermission();
-  }, []);
 
-  useEffect(() => {
     if (adminId) {
       const pusher = new Pusher("ff0fc3f0096af6ab8a90", {
         cluster: "ap2",
