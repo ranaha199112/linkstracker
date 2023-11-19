@@ -27,7 +27,7 @@ function Notification() {
   useEffect(() => {
     const requestNotificationPermission = async () => {
       try {
-        const permission = await Notification.requestPermission();
+        const permission = await window.Notification.requestPermission();
         if (permission === "granted") {
           // Permission granted, you can now use notifications
           console.log("Notification permission granted");
