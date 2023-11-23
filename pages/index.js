@@ -97,7 +97,7 @@ function HomePage() {
 
   const cardsData = fetchedData2?.data;
 
-  // console.log("clicksData", clicksData);
+  console.log("clicksData", clicksData);
 
   const cards = [
     {

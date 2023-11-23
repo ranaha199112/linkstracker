@@ -24,6 +24,8 @@ function PosterLinks({ id, admin }) {
   // const allSites = fetchedData?.sites;
   const activeSites = fetchedData?.data?.data;
 
+  console.log("activesites", activeSites);
+
   const sites = activeSites?.map((site) => {
     return {
       site: site,

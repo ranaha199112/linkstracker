@@ -16,6 +16,8 @@ function PosterDetailsPage() {
     ? data?.data?.data
     : "";
 
+  console.log("data", data);
+
   return (
     <div className="relative">
       <div className="flex items-center gap-3">

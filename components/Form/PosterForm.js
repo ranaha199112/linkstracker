@@ -103,8 +103,10 @@ function PosterForm({ id, adminId }) {
                             name="links"
                             label={`${link
                               ?.split("https://")
-                              ?.join("")}/${adminId}/${formik.values.posterId}`}
-                            value={`${link}/${adminId}/${formik.values.posterId}`}
+                              ?.join("")}/verify/${adminId}/${
+                              formik.values.posterId
+                            }`}
+                            value={`${link}/verify/${adminId}/${formik.values.posterId}`}
                             resetonchange="true"
                           />
                         ))}
