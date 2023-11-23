@@ -16,7 +16,7 @@ function PosterEditPage() {
   } = useRouter();
 
   const { data: fetchedData, isLoading } = useGetData(
-    `/poster/details/${posterEditId}`
+    `/posters/details/${posterEditId}`
   );
   const username = fetchedData?.data?.data?.username;
   const password = fetchedData?.data?.data?.password;

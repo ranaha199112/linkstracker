@@ -8,7 +8,7 @@ import Loader from "../../../components/common/Loader";
 function PosterDetailsPage() {
   const { back, query } = useRouter();
   const { posterDetailsId } = query;
-  const { data, isLoading } = useGetData(`/poster/details/${posterDetailsId}`);
+  const { data, isLoading } = useGetData(`/posters/details/${posterDetailsId}`);
 
   console.log("poster collection", data?.data?.data);
 
@@ -16,7 +16,7 @@ function PosterDetailsPage() {
     ? data?.data?.data
     : "";
 
-  console.log("data", data);
+  // console.log("data", data);
 
   return (
     <div className="relative">
