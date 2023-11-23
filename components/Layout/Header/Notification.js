@@ -63,8 +63,9 @@ function Notification() {
       return () => {
         // channel.unbind_all();
         // channel.unbind(); // Unbind event listeners when component unmounts
+        // pusher.unsubscribe("notifications");
         channel.unbind("new-notification"); // Unbind event listeners when component unmounts
-        pusher.unsubscribe("notifications");
+        pusher.unsubscribe(adminId);
       };
     }
   }, [adminId]);
