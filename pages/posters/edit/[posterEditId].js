@@ -30,9 +30,11 @@ function PosterEditPage() {
   const allLinks = fetchedLinks?.data?.users;
 
   const linksAvailable = allLinks?.filter((link) => {
-    const newLink = `${link}/${adminId}/${posterId}`;
+    const newLink = `${link}/verify/${adminId}/${posterId}`;
     return !yourLinks?.includes(newLink);
   });
+
+  console.log("yourlinks", yourLinks);
 
   console.log("LinksAvailable", linksAvailable);
 
