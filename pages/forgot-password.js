@@ -2,19 +2,31 @@ import { Formik, Form } from "formik";
 import { PasswordField, TextField } from "../components/common/InputField";
 import { getSession } from "next-auth/react";
 import usePostData from "../hooks/usePostData";
+import { useRouter } from "next/router";
 
 function ForgotPasswordPage() {
+  const router = useRouter();
+
   const initialvalues = {
     username: "",
     password: "",
   };
 
-  const { postData } = usePostData("/change/password");
+  const { mutate, isLoading, isError, error, isSuccess } = usePostData({
+    path: "/change/password",
+    successMessage: "Password changed successfully",
+  });
 
   const handleSubmit = (values, formik) => {
     // console.log(values);
-    const goto = "/sign-in";
-    postData(values, goto, formik);
+    // const goto = "/sign-in";
+    // postData(values, goto, formik);
+    mutate(values, {
+      onSuccess: () => {
+        formik.resetForm();
+        router.push("/sign-in");
+      },
+    });
   };
 
   return (

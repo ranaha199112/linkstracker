@@ -10,13 +10,13 @@ function PosterDetailsPage() {
   const { posterDetailsId } = query;
   const { data, isLoading } = useGetData(`/posters/details/${posterDetailsId}`);
 
-  console.log("poster collection", data?.data?.data);
+  // console.log("poster collection", data?.data?.data);
 
   const { username, password, posterId, links, details } = data
     ? data?.data?.data
     : "";
 
-  // console.log("data", data);
+  console.log("poster data", data);
 
   return (
     <div className="relative">

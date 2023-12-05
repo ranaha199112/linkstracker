@@ -36,6 +36,8 @@ function PosterEditPage() {
 
   console.log("yourlinks", yourLinks);
 
+  console.log("allLinks", allLinks);
+
   console.log("LinksAvailable", linksAvailable);
 
   return (

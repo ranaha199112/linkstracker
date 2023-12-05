@@ -67,7 +67,11 @@ import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { API_URL } from "../config";
 
-function usePostData({ path, revalidate }) {
+function usePostData({
+  path,
+  revalidate,
+  successMessage = "Submitted Succcessfully",
+}) {
   const url = `${API_URL}${path}`;
 
   const queryClient = useQueryClient();
@@ -110,7 +114,7 @@ function usePostData({ path, revalidate }) {
     mutationFn: postFn,
     onSuccess: () => {
       queryClient.invalidateQueries([revalidate]);
-      toast.success("Submitted Succcessfully");
+      toast.success(successMessage);
     },
     onError: (error) => {
       console.log("error is", error);
