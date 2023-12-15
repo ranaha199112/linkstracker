@@ -5,25 +5,35 @@ import { API_URL } from "../config";
 
 import useGetData from "../hooks/useGetData";
 import useDeleteData from "../hooks/useDeleteData";
+import { useRouter } from "next/router";
 
-function DeletePost({ posterInfo }) {
+function DeleteCollection({ collectionInfo }) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [disableDelete, setDisableDelete] = useState(false);
+  // const [disableDelete, setDisableDelete] = useState(false);
 
   const { data: session } = useSession();
-  const adminId = session?.user?.id;
+
+  const role = session?.user?.admin ? "admin" : "user";
+
+  // console.log("role", role);
+
+  const router = useRouter();
+  const posterDetailsId =
+    role === "admin" ? router.query.posterDetailsId : session?.user?.id;
+
+  console.log("posterid", posterDetailsId);
 
   // const { mutate } = useGetData(`/all/poster/${adminId}`);
 
   const { mutate, isLoading, isSuccess, isError } = useDeleteData({
-    path: `/delete/poster/${posterInfo._id}/${adminId}`,
-    revalidate: `/all/poster/${adminId}`,
+    path: `/delete/info/${collectionInfo._id}/${posterDetailsId}`,
+    revalidate: `/posters/details/${posterDetailsId}`,
   });
 
   const handleDelete = () => {
     mutate("", {
       onSuccess: () => {
-        toast.success(`Poster ${posterInfo.username} Deleted`);
+        toast.success(`Collection Deleted`);
       },
       onSettled: () => {
         setShowDeleteModal(false);
@@ -33,7 +43,7 @@ function DeletePost({ posterInfo }) {
     // setDisableDelete(true);
 
     // const res = await fetch(
-    //   `${API_URL}/delete/poster/${posterInfo._id}/${adminId}`,
+    //   `${API_URL}/delete/poster/${collectionInfo._id}/${adminId}`,
     //   {
     //     method: "DELETE",
     //   }
@@ -45,7 +55,7 @@ function DeletePost({ posterInfo }) {
 
     // if (res.ok) {
     //   console.log("success", data);
-    //   toast.success(`Poster ${posterInfo.username} Deleted`);
+    //   toast.success(`Poster ${collectionInfo.username} Deleted`);
     // } else {
     //   console.log("error", data);
     //   toast.success("Something went wrong");
@@ -70,16 +80,32 @@ function DeletePost({ posterInfo }) {
             <div className="mx-2 bg-white p-3 lg:p-8 rounded-lg">
               <div className="pb-4 border-b">
                 <p className="text-center text-xl lg:text-2xl text-gray-800">
-                  {`Are you sure you want to delete Poster "${posterInfo.username}"?`}
+                  {`Are you sure you want to delete this collection?`}
                 </p>
               </div>
 
               <p className="mt-3 text-red-600 text-center">
-                {`Warning: All data from poster ${posterInfo.username} will be
-                deleted. This action is irreversible.`}
+                {`Warning: This action is irreversible.`}
               </p>
 
-              {!isLoading ? (
+              <div className="mt-5 lg:mt-8 flex justify-center gap-7 items-center">
+                <button
+                  className="bg-blue-600  text-white font-semibold px-4 py-2 rounded disabled:pointer-events-none disabled:opacity-50"
+                  onClick={() => setShowDeleteModal(false)}
+                  disabled={isLoading}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="bg-red-600  text-white font-semibold px-4 py-2 rounded disabled:pointer-events-none disabled:opacity-50"
+                  onClick={handleDelete}
+                  disabled={isLoading}
+                >
+                  {!isLoading ? "Delete" : "Deleting..."}
+                </button>
+              </div>
+
+              {/* {!isLoading ? (
                 <div className="mt-5 lg:mt-8 flex justify-center gap-7 items-center">
                   <button
                     className="bg-blue-600  text-white font-semibold px-4 py-2 rounded"
@@ -101,7 +127,7 @@ function DeletePost({ posterInfo }) {
                     Deleting . . .
                   </button>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -110,4 +136,4 @@ function DeletePost({ posterInfo }) {
   );
 }
 
-export default DeletePost;
+export default DeleteCollection;

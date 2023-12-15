@@ -1,5 +1,5 @@
 import Link from "next/link";
-import DeletePost from "../../DeletePost";
+import DeletePoster from "../../DeletePoster";
 import { getTimeDistance } from "../../../utils/getTimeDistance";
 
 export const postersColumn = [
@@ -60,7 +60,7 @@ export const postersColumn = [
           </Link>
         </div>
 
-        <DeletePost posterInfo={row.original} />
+        <DeletePoster posterInfo={row.original} />
       </div>
     ),
   },
