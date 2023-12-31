@@ -1,65 +1,38 @@
-import { useSession } from "next-auth/react";
-import React from "react";
-import { FaGlobe } from "react-icons/fa";
 import Loader from "../common/Loader";
 import Table from "../Table";
 import { linkColumn } from "../Table/columns/linkColumn";
-// import { linkData } from "../data/linkData";
 import useGetData from "../../hooks/useGetData";
 
 function AdminLinks({ id, admin }) {
-  // const { data: session } = useSession();
-  // const { id, username, admin, adminId } = session ? session.user : "";
-
-  // const { data: fetchedData, isLoading } = useGetData(
-  //   `/link/get/${id}/${admin}`
-  // );
-
   const { data: fetchedData, isLoading } = useGetData(
     `/link/get/all/hello/world/com/data/${id}/${admin}`
   );
 
-  const allSites = fetchedData?.data?.sites;
+  // const allSites = fetchedData?.data?.sites;
   const activeSites = fetchedData?.data?.data;
 
-  // const x = allSites?.map((site) => site.name);
-  // const y = activeSites?.map((site) => site);
+  // console.log("activesites", activeSites);
 
-  // const status = () => {
-  //   const check = x?.map((site) => {
-  //     if (y.includes(site)) {
-  //       return "active";
+  // const linksData = allSites?.map((site) => {
+  //   const checkStatus = () => {
+  //     if (activeSites?.includes(site.name)) {
+  //       return "Active";
   //     } else {
-  //       return "inactive";
+  //       return "Inactive";
   //     }
-  //   });
-  //   return check;
-  // };
+  //   };
 
-  // console.log(status());
+  //   return {
+  //     site: site.name,
+  //     status: checkStatus(),
+  //   };
+  // });
 
-  const linksData = allSites?.map((site) => {
-    const checkStatus = () => {
-      if (activeSites?.includes(site.name)) {
-        return "Active";
-      } else {
-        return "Inactive";
-      }
-    };
-
+  const linksData = activeSites?.map((site) => {
     return {
-      site: site.name,
-      status: checkStatus(),
+      site: site,
     };
   });
-
-  // const checkStatus = (site) => {
-  //   if (activeSites?.includes(site.name)) {
-  //     return "Active";
-  //   } else {
-  //     return "Inactive";
-  //   }
-  // };
 
   return (
     <div className="relative">
