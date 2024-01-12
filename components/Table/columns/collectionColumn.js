@@ -87,6 +87,17 @@ export const collectionColumn = [
     ),
   },
   {
+    Header: "Ip",
+    accessor: "ip",
+    width: "auto",
+  },
+  {
+    Header: "Agent",
+    accessor: "agent",
+    // width: "auto",
+    minWidth: 500,
+  },
+  {
     Header: "Time",
     accessor: "createdAt",
     disableSortBy: true,
