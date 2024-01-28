@@ -18,10 +18,16 @@ function PosterEditPage() {
   const { data: fetchedData, isLoading } = useGetData(
     `/posters/details/${posterEditId}`
   );
-  const username = fetchedData?.data?.data?.username;
-  const password = fetchedData?.data?.data?.password;
-  const posterId = fetchedData?.data?.data?.posterId;
-  const yourLinks = fetchedData?.data?.data?.links;
+
+  // const username = fetchedData?.data?.data?.username;
+  // const password = fetchedData?.data?.data?.password;
+  // const posterId = fetchedData?.data?.data?.posterId;
+  // const yourLinks = fetchedData?.data?.data?.links;
+
+  const username = fetchedData?.data?.data?._doc.username;
+  const password = fetchedData?.data?.data?._doc.password;
+  const posterId = fetchedData?.data?.data?._doc.posterId;
+  const yourLinks = fetchedData?.data?.data?._doc.links;
 
   const { data: fetchedLinks, isLoading: isLoading2 } = useGetData(
     `/link/get/${id}`
