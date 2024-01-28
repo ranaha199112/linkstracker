@@ -12,11 +12,16 @@ function PosterDetailsPage() {
 
   // console.log("poster collection", data?.data?.data);
 
-  const { username, password, posterId, links, details } = data
-    ? data?.data?.data
-    : "";
+  // const { username, password, posterId, links, details } = data
+  //   ? data?.data?.data
+  //   : "";
 
-  console.log("poster data", data);
+  const { _doc, details } = data ? data?.data?.data : "";
+
+  const { username, password, posterId, links } = _doc ? _doc : "";
+
+  console.log("poster data _doc:", _doc);
+  // console.log("poster id", posterId);
 
   return (
     <div className="relative">
