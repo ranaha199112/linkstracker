@@ -5,6 +5,9 @@ import { Router, useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { dashboardLinks } from "./Sidebar/navlinks/dashboardLinks";
 import useToggle from "../../hooks/useToggle";
+import Pusher from "pusher-js";
+import useLogOut from "../../hooks/useLogOut";
+import { useEffect } from "react";
 
 function Layout({ children, heading }) {
   // const [showMenu, setShowMenu] = useState(false);
@@ -16,10 +19,40 @@ function Layout({ children, heading }) {
 
   const { pathname } = useRouter();
 
+  const { logoutUser } = useLogOut();
+
   const { data } = useSession();
 
   const admin = data?.user?.admin;
   const username = data?.user?.username;
+
+  const adminId = data?.user.adminId;
+
+  useEffect(() => {
+    if (adminId) {
+      const pusher = new Pusher(
+        "f47713a33f95b281fff6", // APP_KEY
+        {
+          cluster: "ap2",
+          encrypted: true,
+        }
+      );
+
+      const channel = pusher.subscribe(adminId);
+      channel.bind("password-notification", (data) => {
+        console.log("event from backend:", data);
+        data.adminId === adminId && logoutUser();
+      });
+
+      return () => {
+        // channel.unbind_all();
+        // channel.unbind(); // Unbind event listeners when component unmounts
+        // pusher.unsubscribe("notifications");
+        channel.unbind("password-notification"); // Unbind event listeners when component unmounts
+        pusher.unsubscribe(adminId);
+      };
+    }
+  }, [adminId]);
 
   // console.log("usersession", data);
 
