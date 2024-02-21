@@ -1,5 +1,6 @@
 function PosterQR({ selectedSite, setSelectedSite, fetchedData2 }) {
   const posterLinks = fetchedData2?.data;
+   console.log(posterLinks)
 
   return (
     <div className="">

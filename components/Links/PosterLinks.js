@@ -18,20 +18,17 @@ function PosterLinks({ id, admin }) {
   const { data: fetchedData, isLoading } = useGetData(
     `/link/get/all/hello/world/com/data/${id}/${admin}`
   );
-
   // console.log("links", fetchedData);
 
   // const allSites = fetchedData?.sites;
   const activeSites = fetchedData?.data?.data;
 
-  console.log("activesites", activeSites);
 
   const sites = activeSites?.map((site) => {
     return {
       site: site,
     };
   });
-
   // const x = allSites?.map((site) => site.name);
   // const y = activeSites?.map((site) => site);
 
