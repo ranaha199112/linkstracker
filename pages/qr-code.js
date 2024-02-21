@@ -23,7 +23,7 @@ function QRCodepage() {
   const { data: fetchedData2, isLoading: isLoading2 } = useGetData(apiLink);
 
 
-  console.log("qrcode", fetchedData2.data);
+  // console.log("qrcode", fetchedData2.data);
 
   const { Image } = useQRCode();
 

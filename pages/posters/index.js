@@ -40,7 +40,7 @@ function Posterspage() {
 
   const userData = fetchedData?.data?.data?.posters;
 
-  console.log("userData", userData);
+  // console.log("userData", userData);
 
   // console.log("ppp", fetchedData.data?.[0].posters);
   const table = userData && (
