@@ -42,14 +42,14 @@ function Notification() {
     requestNotificationPermission();
 
     if (adminId) {
-      const pusher = new Pusher("f47713a33f95b281fff6", {
+      const pusher = new Pusher("sent-notification", {
         // APP_KEY
         cluster: "ap2",
         encrypted: true,
       });
 
       const channel = pusher.subscribe(adminId);
-      channel.bind("new-notification", (data) => {
+      channel.bind("sent-notification", (data) => {
         setNotifications((prevNotifications) => [
           ...prevNotifications,
           `New collection added from ${data.name}`,
@@ -65,7 +65,7 @@ function Notification() {
         // channel.unbind_all();
         // channel.unbind(); // Unbind event listeners when component unmounts
         // pusher.unsubscribe("notifications");
-        channel.unbind("new-notification"); // Unbind event listeners when component unmounts
+        channel.unbind("sent-notification"); // Unbind event listeners when component unmounts
         pusher.unsubscribe(adminId);
       };
     }
