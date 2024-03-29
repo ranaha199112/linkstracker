@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-
 export const id = Cookies.get("id");
 export const adminId = Cookies.get("adminId");
 export const username = Cookies.get("username");
