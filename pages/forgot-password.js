@@ -15,18 +15,18 @@ function ForgotPasswordPage() {
 
   const initialvalues = {
     username: "",
-    phone: "",
-    otp: "",
-    password: "",
+    newPassword: "",
+    // otp: "",
+    // password: "",
   };
 
-  const { mutate: phoneMutate, isLoading: phoneIsLoading } = usePasswordReset({
-    path: "/change/password/otp/once",
-  });
+  // const { mutate: phoneMutate, isLoading: phoneIsLoading } = usePasswordReset({
+  //   path: "/change/password/otp/once",
+  // });
 
-  const { mutate: otpMutate, isLoading: otpIsLoading } = usePasswordReset({
-    path: "/user/check/otp",
-  });
+  // const { mutate: otpMutate, isLoading: otpIsLoading } = usePasswordReset({
+  //   path: "/user/check/otp",
+  // });
 
   const { mutate: passwordMutate, isLoading: passwordIsLoading } =
     usePasswordReset({
@@ -37,41 +37,51 @@ function ForgotPasswordPage() {
     if (step === 1) {
       const values1 = {
         username: values.username,
-        phone: values.phone,
+        newPassword: values.newPassword,
       };
-      // console.log("step 1 values", values1);
-
-      phoneMutate(values1, {
-        onSuccess: () => {
-          setStep(2);
-        },
-      });
-    } else if (step === 2) {
-      const values2 = {
-        username: values.username,
-        otp: values.otp,
-      };
-      // console.log("step 2 values", values2);
-      otpMutate(values2, {
-        onSuccess: () => {
-          setStep(3);
-        },
-      });
-    } else if (step === 3) {
-      const values3 = {
-        username: values.username,
-        otp: values.otp,
-        password: values.password,
-      };
-      // console.log("step 3 values", values3);
-      passwordMutate(values3, {
+      console.log("step 1 values", values1);
+      passwordMutate(values1,{
         onSuccess: () => {
           formik.resetForm();
           router.push("/sign-in");
           toast.success("Password changed successfully");
         },
       });
-    }
+
+      // phoneMutate(values1, {
+      //   onSuccess: () => {
+      //     setStep(2);
+      //   },
+      // });
+
+    } 
+    // else if (step === 2) {
+    //   const values2 = {
+    //     username: values.username,
+    //     otp: values.otp,
+    //   };
+    //   // console.log("step 2 values", values2);
+    //   otpMutate(values2, {
+    //     onSuccess: () => {
+    //       setStep(3);
+    //     },
+    //   });
+    // } 
+    // else if (step === 3) {
+    //   const values3 = {
+    //     username: values.username,
+    //     otp: values.otp,
+    //     password: values.password,
+    //   };
+    //   // console.log("step 3 values", values3);
+    //   passwordMutate(values3, {
+    //     onSuccess: () => {
+    //       formik.resetForm();
+    //       router.push("/sign-in");
+    //       toast.success("Password changed successfully");
+    //     },
+    //   });
+    // }
   };
 
   return (
@@ -83,7 +93,7 @@ function ForgotPasswordPage() {
           <h1 className="text-2xl font-semibold text-center">
             Change Password
           </h1>
-          <p className="my-4 font-bold text-center text-lg text-gray-700">{`Step: ${step}/3`}</p>
+          {/* <p className="my-4 font-bold text-center text-lg text-gray-700">{`Step: ${step}/3`}</p> */}
           <div className="mt-8">
             <Formik
               initialValues={initialvalues}
@@ -95,9 +105,9 @@ function ForgotPasswordPage() {
                   <div className="text-sm gap-y-5 md:gap-y-7">
                     <div className="min-w-[300px] max-w-[320px] lg:w-[350px] space-y-4">
                       {step === 1 && (
-                        <PhoneNumberForm isLoading={phoneIsLoading} />
+                        <PhoneNumberForm isLoading={passwordIsLoading } />
                       )}
-                      {step === 2 && (
+                      {/* {step === 2 && (
                         <OtpForm
                           setStep={setStep}
                           resetForm={formik.resetForm}
@@ -106,7 +116,7 @@ function ForgotPasswordPage() {
                       )}
                       {step === 3 && (
                         <NewPasswordForm isLoading={passwordIsLoading} />
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </Form>
