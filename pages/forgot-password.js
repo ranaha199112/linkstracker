@@ -15,9 +15,9 @@ function ForgotPasswordPage() {
 
   const initialvalues = {
     username: "",
-    newPassword: "",
+      password: "",
     // otp: "",
-    // password: "",
+   
   };
 
   // const { mutate: phoneMutate, isLoading: phoneIsLoading } = usePasswordReset({
@@ -37,7 +37,7 @@ function ForgotPasswordPage() {
     if (step === 1) {
       const values1 = {
         username: values.username,
-        newPassword: values.newPassword,
+        password: values.password,
       };
       console.log("step 1 values", values1);
       passwordMutate(values1,{
