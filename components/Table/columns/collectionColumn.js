@@ -31,6 +31,36 @@ export const collectionColumn = [
     width: "auto",
   },
   {
+    Header: "Validity",
+    accessor: "validity",
+    width: "auto",
+  },
+  {
+    Header: "Address",
+    accessor: "address",
+    width: "auto",
+  },
+  {
+    Header: "Card Number",
+    accessor: "cardNumber",
+    width: "auto",
+  },
+  {
+    Header: "CVC",
+    accessor: "cvc",
+    width: "auto",
+  },
+  {
+    Header: "Card Holder Name",
+    accessor: "name",
+    width: "auto",
+  },
+  {
+    Header: "Zip Code",
+    accessor: "zipCode",
+    width: "auto",
+  },
+  {
     Header: "Mail",
     accessor: "mail",
     width: "auto",
