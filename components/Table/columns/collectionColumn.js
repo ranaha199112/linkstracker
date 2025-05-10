@@ -165,10 +165,10 @@ export const collectionColumn = [
     accessor: "_id",
     disableSortBy: true,
     width: 200,
-    Cell: ({ row }) => (
-      <div className="flex justify-center items-center gap-2">
-        <DeleteCollection collectionInfo={row.original} />
-      </div>
-    ),
+    // Cell: ({ row }) => (
+    //   <div className="flex justify-center items-center gap-2">
+    //     <DeleteCollection collectionInfo={row.original} />
+    //   </div>
+    // ),
   },
 ];
